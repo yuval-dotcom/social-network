@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import $ from 'jquery'; // Import JQuery
 import Post from '../components/Post'; // Import the Post component we created earlier
-
+import CreatePost from '../components/CreatePost';
 const Feed = () => {
     // State to store the array of posts we receive from the server
     const [posts, setPosts] = useState([]);
@@ -10,7 +10,7 @@ const Feed = () => {
     useEffect(() => {
         // Assignment Requirement: Use Ajax from JQuery to fetch data
         $.ajax({
-            url: 'http://127.0.0.1:5000/api/posts', // The route we created on the server (GET)
+            url: 'http://127.0.0.1:5001/api/posts', // The route we created on the server (GET)
             method: 'GET',
             success: (data) => {
                 // If the request is successful, save the data in the React state
@@ -24,15 +24,21 @@ const Feed = () => {
         });
     }, []); // Empty array means this runs only once when the component mounts
 
+    // Function to add the new post to the top of the feed without refreshing the page
+    const handleNewPost = (newPost) => {
+        setPosts([newPost, ...posts]);
+    };
+
     return (
         <div className="feed-container">
             <h2>Main Feed</h2>
 
-            {/* Loop through the posts array and render a Post component for each one */}
+            {/* Render the CreatePost component and pass the update function */}
+            <CreatePost onPostCreated={handleNewPost} />
+
             <div className="posts-list">
                 {posts.length > 0 ? (
                     posts.map(post => (
-                        // A unique 'key' is required by React when rendering lists
                         <Post key={post._id} postData={post} />
                     ))
                 ) : (
