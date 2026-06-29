@@ -1,38 +1,64 @@
-.App {
-  text-align: center;
+/* 1. Assignment Requirement: Font-face */
+@font-face {
+  font-family: 'CustomFont';
+  src: url('https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Me5Q.ttf') format('truetype');
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'CustomFont', Arial, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
+  background-color: #3b5998;
+  padding: 15px 30px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+/* 2. Assignment Requirement: Text-shadow */
+.logo {
   color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  padding: 8px 12px;
+  background-color: #2d4373;
+
+  /* 3. Assignment Requirement: Border-radius */
+  border-radius: 5px;
+
+  /* 4. Assignment Requirement: Transition */
+  transition: background-color 0.3s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* The transition effect in action when hovering over the link */
+.nav-links a:hover {
+  background-color: #4c70ba;
+}
+
+.feed-container {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+/* 5. Assignment Requirement: Multiple-columns */
+/* We will use this to split the post text into two columns if it's long */
+.post-content {
+  column-count: 2;
+  column-gap: 20px;
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  /* Extra border-radius just in case */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
