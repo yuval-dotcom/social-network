@@ -16,6 +16,9 @@ app.use(cors());
 
 // Middleware to allow the server to receive and parse JSON data from requests
 app.use(express.json());
+// Add routes
+const postRoutes = require('./routes/postRoutes');
+app.use('/api/posts', postRoutes);
 
 // Connect to MongoDB using the connection string from the .env file
 mongoose.connect(process.env.MONGO_URI)
