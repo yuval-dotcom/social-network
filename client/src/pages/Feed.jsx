@@ -10,7 +10,7 @@ const Feed = () => {
     useEffect(() => {
         // Assignment Requirement: Use Ajax from JQuery to fetch data
         $.ajax({
-            url: 'http://localhost:5000/api/posts', // The route we created on the server (GET)
+            url: 'http://127.0.0.1:5000/api/posts', // The route we created on the server (GET)
             method: 'GET',
             success: (data) => {
                 // If the request is successful, save the data in the React state
