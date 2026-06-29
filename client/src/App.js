@@ -1,23 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Feed from './pages/Feed';
-import './App.css'; // We will add the required CSS3 properties here
+import Auth from './pages/Auth';
+import Groups from './pages/Groups';
+import './App.css';
 
 const App = () => {
+  // Check if user is already logged in (using the local storage key we set in Auth.jsx)
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('connectedUser')));
+
   return (
-    // Router wraps the entire application to enable navigation
     <Router>
       <div className="app-container">
-        {/* The Navbar will always be visible at the top */}
         <Navbar />
 
-        {/* Routes decide which component to show based on the URL */}
         <Routes>
-          {/* When the path is '/', show the Feed component */}
-          <Route path="/" element={<Feed />} />
+          {/* If user is logged in, show Feed, otherwise redirect to Auth */}
+          <Route path="/" element={user ? <Feed /> : <Navigate to="/login" />} />
 
-          {/* TODO for later: Add the Groups page route here */}
+          {/* The Authentication Page */}
+          <Route path="/login" element={<Auth onLoginSuccess={setUser} />} />
+          <Route path="/groups" element={user ? <Groups /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </Router>

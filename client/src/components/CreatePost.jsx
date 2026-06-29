@@ -10,32 +10,30 @@ const CreatePost = ({ onPostCreated }) => {
 
     // Function to handle the form submission
     const handleSubmit = (e) => {
-        e.preventDefault(); // Prevents the page from refreshing when submitting the form
+        e.preventDefault();
 
-        // Create the object that matches our Mongoose Post model
+        // Retrieve the connected user from localStorage
+        const connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
+
         const newPostData = {
             text: text,
-            // Temporary fake ID until we build the Login/Auth system
-            author: "64b5f8d0d55b54764421b715",
+            // Use the real user ID from the login session
+            author: connectedUser._id,
+            authorName: connectedUser.username, // Sending username for the display
             videoUrl: videoUrl || null
         };
 
-        // Send a POST request to the server using jQuery
         $.ajax({
-            url: 'http://127.0.0.1:5001/api/posts',
+            url: 'http://localhost:5001/api/posts',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(newPostData),
             success: (createdPost) => {
-                // Clear the input fields after successful creation
                 setText('');
                 setVideoUrl('');
-
-                // Tell the Feed component to add this new post to the top of the list
                 onPostCreated(createdPost);
             },
             error: (err) => {
-                console.error('Error creating post:', err);
                 alert('Server error: ' + (err.responseJSON ? err.responseJSON.message : 'Network error'));
             }
         });

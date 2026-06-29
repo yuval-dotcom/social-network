@@ -25,3 +25,23 @@ exports.getUsers = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// LOGIN: Authenticate a user
+exports.loginUser = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        // Find a user in MongoDB that matches BOTH the username and the password
+        const user = await User.findOne({ username: username, password: password });
+
+        if (!user) {
+            // Assignment Requirement: Handle edge cases (wrong password/username)
+            return res.status(401).json({ message: 'Invalid username or password' });
+        }
+
+        // If found, send the user data back to React
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
