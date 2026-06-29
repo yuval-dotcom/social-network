@@ -18,7 +18,12 @@ app.use(cors());
 app.use(express.json());
 // Add routes
 const postRoutes = require('./routes/postRoutes');
+const userRoutes = require('./routes/userRoutes');
+const groupRoutes = require('./routes/groupRoutes');
+
 app.use('/api/posts', postRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/groups', groupRoutes);
 
 // Connect to MongoDB using the connection string from the .env file
 mongoose.connect(process.env.MONGO_URI)
